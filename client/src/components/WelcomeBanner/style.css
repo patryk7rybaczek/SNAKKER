@@ -1,0 +1,15 @@
+.welcome-banner {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center; }
+
+.welcome-banner h2 {
+  margin-bottom: 0;
+  font-size: 3.6em;
+  color: #21B994; }
+
+.welcome-banner h3 {
+  margin: 0 0 2.5em 0;
+  color: #303339; }

@@ -9,7 +9,7 @@ const SearchSuggestion = (props) => {
             {s.name} {s.lastname}
         </li>
     ))
-    return <ul>{options}</ul>
+    return <ul className="search-list">{options}</ul>
 }
 
 export default SearchSuggestion

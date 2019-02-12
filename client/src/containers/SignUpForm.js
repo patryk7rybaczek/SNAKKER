@@ -10,7 +10,7 @@ export class SignUpForm extends Component {
 
   render() {
     return (
-        <div>
+        <div className="SignInUpContainer">
             <div className="logo">
                 <Logo /> 
             </div>

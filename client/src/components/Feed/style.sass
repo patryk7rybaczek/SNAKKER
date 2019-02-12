@@ -1,0 +1,110 @@
+.feed
+    width: 45%
+    display: flex
+    margin: 0 auto
+    padding: 2.5em
+    flex-direction: column
+    
+    background: #F1F1F1
+    border-radius: 0.5em
+    .user-post
+        display: flex
+        margin-bottom: 2.5em
+        flex-direction: column
+
+        background: #E5E5E5
+        border-radius: 0.5em
+        form
+            display: flex
+            flex-direction: column
+            .input-wrapper
+                display: flex
+                padding: 2.5em
+                align-items: center
+                flex-direction: row
+                img
+                    width: 5em
+                    border-radius: 50%
+                input
+                    width: 90%
+                    height: 2em
+                    border: none
+                    color: #303339   
+                    margin-left: 4%
+                    font-size: 1.4em
+                    border-radius: 0.2em
+                    letter-spacing: 0.04em
+                    padding: 0.3em 1.5em 0.3em 1.5em
+            .button-wrapper
+                width: 100%
+                display: flex
+                .btn-inp
+                    width: 100%
+                    height: 3em
+                    border: none
+
+                    color: #F1F1F1
+                    cursor: pointer
+                    font-size: 1.4em
+                    font-weight: bold
+                    background: #21B994
+                    border-radius: 0 0 0.5em 0.5em
+    .friends-posts
+        display: flex
+        flex-direction: column
+        .post-separator
+            margin-bottom: 4em
+            .post
+                background: #E5E5E5
+                border-radius: 0.5em
+                .top-section
+                    display: flex
+                    padding: 1em 2.5em 0.5em 2.5em
+                    align-items: center
+                    flex-direction: row
+                    img 
+                        width: 4em
+                        border-radius: 50%
+                    p
+                        margin-left: 1em
+                        font-weight: normal
+                        font-size: 1.6em
+                        color: #5C5C5C
+                .content-section
+                    padding: 0em 2.5em 0em 2.5em
+                    p
+                        margin: 0.5em 0 0.5em 0
+                        font-size: 1.4em
+                        font-weight: normal
+                        color: #5C5C5C
+                    .likes-comments
+                        display: flex 
+                        margin: 1.5em 0 0em 0
+                        flex-direction: row
+                        justify-content: space-between
+                        p
+                            color: #21B994
+                            cursor: pointer
+                            font-size: 1.2em
+                            font-weight: bold
+                .bottom-section
+                    display: flex
+                    flex-direction: row
+                    justify-content: space-between
+                    .like-post
+                        width: 50%
+                        i 
+                            margin-right: 0.2em
+                    .comment-post
+                        width: 50%
+                        i 
+                            margin-right: 0.2em
+                    button 
+                        width: 100%
+                        height: 3em
+                        border: none
+                        color: #F1F1F1
+                        cursor: pointer
+                        font-size: 1.4em
+                        font-weight: bold
+                        background: #21B994

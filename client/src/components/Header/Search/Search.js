@@ -9,37 +9,37 @@ export default class Search extends Component {
   state = {
     showSuggestion: false,
     initsearchesFound: [{
-      id: 1,
+      id: 0,
       name: 'Alfred',
       lastname: 'Svensson',
       avatar: {Avatar}
     },
     {
-      id: 2,
+      id: 1,
       name: 'Simon',
       lastname: 'Gunnarsson',
       avatar: {Avatar}
     },
     {
-      id: 3,
+      id: 2,
       name: 'Ahmed',
       lastname: 'Nilsson',
       avatar: {Avatar}
     },
     {
-      id: 4,
+      id: 3,
       name: 'Niklas',
       lastname: 'Gran',
       avatar: {Avatar}
     },
     {
-      id: 5,
+      id: 4,
       name: 'Shindy',
       lastname: 'Ylle',
       avatar: {Avatar}
     },
     {
-      id: 6,
+      id: 5,
       name: 'Dankan',
       lastname: 'Bertin',
       avatar: {Avatar}
@@ -70,7 +70,6 @@ export default class Search extends Component {
   }
 
   render() {
-    console.log(this.state.searchesFound)
     return (
       <div className="search">
           <input 

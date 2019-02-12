@@ -8,7 +8,12 @@ body {
   min-width: 100vw;
   padding: 7.5vh 0vh 5vh 15vh; }
 
-form {
+.SignInUpContainer {
+  height: 100vh;
+  background-image: linear-gradient(#21b994, #1c9e7f); }
+
+.SignInUpContainer form {
+  height: auto;
   width: 32.5vw;
   display: flex;
   margin: 0 auto;
@@ -18,7 +23,7 @@ form {
   justify-content: center;
   background: #36393F; }
 
-form .Heading {
+.SignInUpContainer form .Heading {
   margin: 0 0 10px 0;
   color: #F1F1F1;
   font-size: 32px;
@@ -26,7 +31,7 @@ form .Heading {
   text-align: center;
   letter-spacing: -1.5px; }
 
-form .Heading-SignIn {
+.SignInUpContainer form .Heading-SignIn {
   margin: 0 0 5px 0;
   color: #F1F1F1;
   font-size: 32px;
@@ -34,7 +39,7 @@ form .Heading-SignIn {
   text-align: center;
   letter-spacing: -1.5px; }
 
-form .OfferLink {
+.SignInUpContainer form .OfferLink {
   margin: 0 0 10px 0;
   color: #F1F1F1;
   font-size: 14px;
@@ -42,11 +47,11 @@ form .OfferLink {
   text-align: center;
   letter-spacing: -0.5px; }
 
-form .OfferLink a {
+.SignInUpContainer form .OfferLink a {
   color: #21b994;
   text-decoration: none; }
 
-form label {
+.SignInUpContainer form label {
   opacity: 0.7;
   color: #F1F1F1;
   font-size: 12px;
@@ -55,7 +60,7 @@ form label {
   letter-spacing: -0.5px;
   text-transform: uppercase; }
 
-form input {
+.SignInUpContainer form input {
   height: 40px;
   color: #F1F1F1;
   margin: 0 0 18px 0;
@@ -65,14 +70,14 @@ form input {
   padding: 0 15px 0 15px;
   border: 1px solid #16181B; }
 
-form input:focus {
+.SignInUpContainer form input:focus {
   transition: 0.8s;
   border: 1px solid #21B994; }
 
-form .MarginFree {
+.SignInUpContainer form .MarginFree {
   margin: 0 0 5px 0; }
 
-form .ForgotPass {
+.SignInUpContainer form .ForgotPass {
   color: #21b994;
   font-size: 14px;
   font-weight: 800;
@@ -80,32 +85,33 @@ form .ForgotPass {
   letter-spacing: -0.5px;
   text-decoration: none; }
 
-form .FormFooter {
+.SignInUpContainer form .FormFooter {
   display: flex;
   flex-direction: column; }
 
-form .FormFooter .SignUpLink {
+.SignInUpContainer form .FormFooter .SignUpLink {
   margin: 0;
   color: #F1F1F1;
   font-size: 14px;
   font-weight: 100;
   letter-spacing: -0.5px; }
 
-form .FormFooter .SignUpLink a {
+.SignInUpContainer form .FormFooter .SignUpLink a {
   color: #21b994;
   text-decoration: none; }
 
-form .FormFooter button {
+.SignInUpContainer form .FormFooter button {
   height: 50px;
-  border: 1px solid #1c9e7f;
-  margin: 10px 0px 8px 0px;
   color: #F1F1F1;
+  cursor: pointer;
   font-size: 18px;
   font-weight: 600;
+  background: #21B994;
   border-radius: 2.5px;
-  background: #21B994; }
+  border: 1px solid #1c9e7f;
+  margin: 10px 0px 8px 0px; }
 
-form .FormFooter a {
+.SignInUpContainer form .FormFooter a {
   color: #F1F1F1;
   font-size: 14px;
   font-weight: 800;

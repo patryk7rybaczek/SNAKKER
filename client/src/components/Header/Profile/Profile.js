@@ -33,7 +33,7 @@ export default class Header extends Component {
       return (
         <div className="profile">
             <img src={Avatar} alt="user avatar"/>
-            <span id="username">Username</span>
+            <span id="username">Patryk</span>
               <div className="profile-menu-container">
                 <CSSTransitionGroup
                   transitionName="slideToggle"
