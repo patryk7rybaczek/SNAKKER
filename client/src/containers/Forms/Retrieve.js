@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import "./style.css";
-import Logo from "../logo";
+import Logo from "../../logo";
 
 export class Retrieve extends Component {
   render() {
     return (
-        <div>
+        <div className="SignInUpContainer"> 
             <div className="logo">
                 <Logo /> 
             </div>

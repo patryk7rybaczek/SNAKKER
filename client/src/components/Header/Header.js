@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 // Header Components
 import HeaderLogo from './HeaderLogo/HeaderLogo'
-import Profile from './Profile/Profile'
+import ProfileSettings from './ProfileSettings/ProfileSettings'
 import Search from './Search/Search'
 
 import './style.css'
@@ -13,7 +13,7 @@ export default class Header extends Component {
         <header>
             <HeaderLogo />
             <Search />
-            <Profile />
+            <ProfileSettings {...this.props}/>
         </header>
       )
     }

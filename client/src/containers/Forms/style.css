@@ -9,7 +9,7 @@ body {
   padding: 7.5vh 0vh 5vh 15vh; }
 
 .SignInUpContainer {
-  height: 100vh;
+  min-height: 100vh;
   background-image: linear-gradient(#21b994, #1c9e7f); }
 
 .SignInUpContainer form {

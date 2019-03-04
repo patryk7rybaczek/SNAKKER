@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import "./style.css";
-import Logo from "../logo";
+import Logo from "../../logo";
 import { Link } from "react-router-dom";
 
 export class SignInForm extends Component {

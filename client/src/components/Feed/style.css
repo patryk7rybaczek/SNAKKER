@@ -1,3 +1,19 @@
+.banner {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center; }
+
+.banner h2 {
+  margin-bottom: 0;
+  font-size: 3.6em;
+  color: #21B994; }
+
+.banner h3 {
+  margin: 0 0 2.5em 0;
+  color: #303339; }
+
 .feed {
   width: 45%;
   display: flex;
@@ -18,26 +34,26 @@
   display: flex;
   flex-direction: column; }
 
-.feed .user-post form .input-wrapper {
+.feed .user-post form .textarea-wrapper {
   display: flex;
   padding: 2.5em;
   align-items: center;
   flex-direction: row; }
 
-.feed .user-post form .input-wrapper img {
+.feed .user-post form .textarea-wrapper img {
   width: 5em;
   border-radius: 50%; }
 
-.feed .user-post form .input-wrapper input {
-  width: 90%;
-  height: 2em;
-  border: none;
-  color: #303339;
-  margin-left: 4%;
-  font-size: 1.4em;
-  border-radius: 0.2em;
-  letter-spacing: 0.04em;
-  padding: 0.3em 1.5em 0.3em 1.5em; }
+.feed .user-post form .textarea-wrapper textarea {
+  border: 0;
+  width: 100%;
+  padding: 1em;
+  resize: none;
+  font-size: 1.2em;
+  max-height: 200px;
+  overflow-x: hidden;
+  margin: 0 0 0 1em;
+  border-radius: 0.5em; }
 
 .feed .user-post form .button-wrapper {
   width: 100%;
@@ -53,78 +69,3 @@
   font-weight: bold;
   background: #21B994;
   border-radius: 0 0 0.5em 0.5em; }
-
-.feed .friends-posts {
-  display: flex;
-  flex-direction: column; }
-
-.feed .friends-posts .post-separator {
-  margin-bottom: 4em; }
-
-.feed .friends-posts .post-separator .post {
-  background: #E5E5E5;
-  border-radius: 0.5em; }
-
-.feed .friends-posts .post-separator .post .top-section {
-  display: flex;
-  padding: 1em 2.5em 0.5em 2.5em;
-  align-items: center;
-  flex-direction: row; }
-
-.feed .friends-posts .post-separator .post .top-section img {
-  width: 4em;
-  border-radius: 50%; }
-
-.feed .friends-posts .post-separator .post .top-section p {
-  margin-left: 1em;
-  font-weight: normal;
-  font-size: 1.6em;
-  color: #5C5C5C; }
-
-.feed .friends-posts .post-separator .post .content-section {
-  padding: 0em 2.5em 0em 2.5em; }
-
-.feed .friends-posts .post-separator .post .content-section p {
-  margin: 0.5em 0 0.5em 0;
-  font-size: 1.4em;
-  font-weight: normal;
-  color: #5C5C5C; }
-
-.feed .friends-posts .post-separator .post .content-section .likes-comments {
-  display: flex;
-  margin: 1.5em 0 0em 0;
-  flex-direction: row;
-  justify-content: space-between; }
-
-.feed .friends-posts .post-separator .post .content-section .likes-comments p {
-  color: #21B994;
-  cursor: pointer;
-  font-size: 1.2em;
-  font-weight: bold; }
-
-.feed .friends-posts .post-separator .post .bottom-section {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between; }
-
-.feed .friends-posts .post-separator .post .bottom-section .like-post {
-  width: 50%; }
-
-.feed .friends-posts .post-separator .post .bottom-section .like-post i {
-  margin-right: 0.2em; }
-
-.feed .friends-posts .post-separator .post .bottom-section .comment-post {
-  width: 50%; }
-
-.feed .friends-posts .post-separator .post .bottom-section .comment-post i {
-  margin-right: 0.2em; }
-
-.feed .friends-posts .post-separator .post .bottom-section button {
-  width: 100%;
-  height: 3em;
-  border: none;
-  color: #F1F1F1;
-  cursor: pointer;
-  font-size: 1.4em;
-  font-weight: bold;
-  background: #21B994; }
