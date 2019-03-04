@@ -13,7 +13,7 @@ export default class Header extends Component {
         <header>
             <HeaderLogo />
             <Search />
-            <Profile />
+            <Profile {...this.props}/>
         </header>
       )
     }

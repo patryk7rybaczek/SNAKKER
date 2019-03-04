@@ -1,19 +1,27 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import Avatar from './avatar.jpg'
 import './style.css'
 
 // CSS React Transitions import 
 import { CSSTransitionGroup } from 'react-transition-group'
 
-export default class Header extends Component {
-  constructor() {
-    super()
+export default class Profile extends Component {
+  constructor(props) {
+    super(props)
     this.state = {
       menuOpen: false,
+      username: null,
     }
 
     this.menuOpen = this.menuOpen.bind(this)
     this.menuClose = this.menuClose.bind(this)
+  }
+  
+  componentDidMount = () => {
+    console.log(this.props)
+    let username = 'Patryk';
+    this.setState({ username: username });
   }
 
   menuOpen(event) {
@@ -30,10 +38,14 @@ export default class Header extends Component {
     }
   }
     render() {
+      const username = this.state.username;
+
       return (
         <div className="profile">
             <img src={Avatar} alt="user avatar"/>
-            <span id="username">Patryk</span>
+            <Link to={'/' + username}>
+              <span id="username">Patryk</span>
+            </Link>
               <div className="profile-menu-container">
                 <CSSTransitionGroup
                   transitionName="slideToggle"
