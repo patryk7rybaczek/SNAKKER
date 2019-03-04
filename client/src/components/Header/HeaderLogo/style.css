@@ -1,0 +1,10 @@
+header .logo-header {
+  min-width: 33.333%;
+  overflow: hidden; }
+  header .logo-header .logo-container {
+    width: 38%;
+    overflow: hidden; }
+    header .logo-header .logo-container svg {
+      height: 32.5px; }
+      header .logo-header .logo-container svg a {
+        cursor: pointer; }
