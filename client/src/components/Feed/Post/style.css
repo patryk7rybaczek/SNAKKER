@@ -1,0 +1,104 @@
+.friends-posts {
+  display: flex;
+  flex-direction: column; }
+
+.friends-posts .post {
+  margin-bottom: 4em;
+  background: #E5E5E5;
+  border-radius: 0.5em; }
+
+.friends-posts .post .top-section-edit {
+  justify-content: space-between; }
+
+.friends-posts .post .top-section {
+  display: flex;
+  padding: 1em 2.5em 0.5em 2.5em;
+  align-items: center;
+  flex-direction: row; }
+
+.friends-posts .post .top-section .user-post-info {
+  display: flex;
+  align-items: center; }
+
+.friends-posts .post .top-section .user-post-info img {
+  width: 4em;
+  border-radius: 50%; }
+
+.friends-posts .post .top-section .user-post-info p {
+  margin-left: 1em;
+  font-weight: normal;
+  font-size: 1.6em;
+  color: #5C5C5C; }
+
+.friends-posts .post .top-section .user-post-settings button {
+  border: 0;
+  cursor: pointer;
+  background: none; }
+
+.friends-posts .post .top-section .user-post-settings button i {
+  color: #21B994;
+  font-size: 1.4em; }
+
+.friends-posts .post .top-section .user-post-settings .user-post-settings-popup {
+  display: flex;
+  position: absolute; }
+
+.friends-posts .post .content-section {
+  padding: 0em 2.5em 0em 2.5em; }
+
+.friends-posts .post .content-section p {
+  margin: 0.5em 0 0.5em 0;
+  font-size: 1.4em;
+  font-weight: normal;
+  color: #5C5C5C; }
+
+.friends-posts .post .content-section .likes-comments {
+  display: flex;
+  margin: 1.5em 0 0em 0;
+  flex-direction: row;
+  justify-content: space-between; }
+
+.friends-posts .post .content-section .likes-comments p {
+  color: #21B994;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: bold; }
+
+.friends-posts .post .content-section textarea {
+  border: 0;
+  width: 100%;
+  padding: 1em;
+  resize: none;
+  font-size: 1.2em;
+  max-height: 200px;
+  overflow-x: hidden;
+  margin: 1em 0 0 0;
+  border-radius: 0.5em;
+  box-sizing: border-box; }
+
+.friends-posts .post .bottom-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; }
+
+.friends-posts .post .bottom-section .like-post {
+  width: 50%; }
+
+.friends-posts .post .bottom-section .like-post i {
+  margin-right: 0.2em; }
+
+.friends-posts .post .bottom-section .comment-post {
+  width: 50%; }
+
+.friends-posts .post .bottom-section .comment-post i {
+  margin-right: 0.2em; }
+
+.friends-posts .post .bottom-section button {
+  width: 100%;
+  height: 3em;
+  border: none;
+  color: #F1F1F1;
+  cursor: pointer;
+  font-size: 1.4em;
+  font-weight: bold;
+  background: #21B994; }
