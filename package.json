@@ -1,0 +1,33 @@
+{
+  "name": "14-fullstackjs-idea-patryk7rybaczek-server",
+  "version": "1.0.0",
+  "description": "[logo]: https://farm2.staticflickr.com/1890/44067364614_0604fbc1f3.jpg",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chas-academy/14-fullstackjs-idea-patryk7rybaczek.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chas-academy/14-fullstackjs-idea-patryk7rybaczek/issues"
+  },
+  "homepage": "https://github.com/chas-academy/14-fullstackjs-idea-patryk7rybaczek#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "is-empty": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.4.20",
+    "nodemon": "^1.18.10",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "validator": "^10.11.0"
+  }
+}
