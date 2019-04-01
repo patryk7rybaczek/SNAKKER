@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import './style.css'
 import PostsList from './Post/PostsList'
-import Avatar from '../Header/Profile/avatar.jpg'
+import Avatar from '../Header/ProfileSettings/avatar.jpg'
 
 export default class Feed extends Component {
   constructor(props) {

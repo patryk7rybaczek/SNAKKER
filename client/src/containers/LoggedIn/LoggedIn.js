@@ -10,9 +10,8 @@ import './loggedin.css'
 export default class LoggedIn extends Component {
   render() {
     return (
-      <div>
-        <Header {...this.props} />
-        <Feed />
+      <div className="root">
+        <Header/>
       </div>
     )
   }

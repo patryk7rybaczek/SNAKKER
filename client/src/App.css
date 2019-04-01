@@ -1,2 +1,9 @@
 *:focus {
   outline: none; }
+
+.error-span {
+  color: #F82044 !important; }
+
+.invalid {
+  background-color: rgba(248, 32, 68, 0.05) !important;
+  border: 1px solid #F93D5B !important; }

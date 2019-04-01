@@ -1,5 +1,5 @@
 import React from 'react'
-import Avatar from '../../Profile/avatar.jpg'
+import Avatar from '../../ProfileSettings/avatar.jpg'
 import './style.css'
 
 const SearchSuggestion = (props) => {

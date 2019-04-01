@@ -1,5 +1,5 @@
 import React from 'react'
-import Avatar from '../../../../components/Header/Profile/avatar.jpg'
+import Avatar from '../../../../components/Header/ProfileSettings/avatar.jpg'
 import './style.css'
 
 const UserCommentList = props => (

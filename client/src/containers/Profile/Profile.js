@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './style.css'
 import PostsList from './Post/PostsList'
 import Header from '../../components/Header/Header'
-import Avatar from '../../components/Header/Profile/avatar.jpg'
+import Avatar from '../../components/Header/ProfileSettings/avatar.jpg'
 
 export default class Profile extends Component {
   constructor(props) {

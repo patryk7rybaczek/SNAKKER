@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './style.css'
 
 import SearchSuggestion from './SearchSuggestion/SearchSuggestion'
-import Avatar from '../Profile/avatar.jpg'
+import Avatar from '../ProfileSettings/avatar.jpg'
 
 export default class Search extends Component {
 

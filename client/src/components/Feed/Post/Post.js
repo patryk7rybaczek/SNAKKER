@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Avatar from '../../Header/Profile/avatar.jpg'
+import Avatar from '../../Header/ProfileSettings/avatar.jpg'
 import UserCommentList from './UserCommentList/UserCommentList'
 import './style.css'
 
