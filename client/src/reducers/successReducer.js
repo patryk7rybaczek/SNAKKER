@@ -1,14 +1,14 @@
-import { GET_ERRORS, CLEAR_ERRORS } from '../actions/types';
+import { GET_SUCCESS, CLEAR_SUCCESS } from '../actions/types';
 
 const initialState = {};
 
 export default function(state = initialState, action) {
     switch (action.type) {
-        case GET_ERRORS:
-            return action.payload
-        case CLEAR_ERRORS:
+        case GET_SUCCESS:
+            return action.payload;
+        case CLEAR_SUCCESS: 
             return {
-                errors: undefined
+                success: undefined
             }
         default:
             return state;

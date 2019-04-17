@@ -2,7 +2,7 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from '../utils/setAuthToken';
 
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types';
+import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING, GET_SUCCESS, CLEAR_ERRORS, CLEAR_SUCCESS } from './types';
 
 // REGISTER - Register new user on snakker
 export const registerUser = (userData, history) => dispatch => {
@@ -39,6 +39,62 @@ export const loginUser = (userData) => dispatch => {
         .catch(err => {
             dispatch({
                 type: GET_ERRORS,
+                payload: err.response.data
+            })
+        })
+}
+
+// PASSWORD RESET - SEND EMAIL WITH LINK
+export const SendRetrieveLink = (userData) => dispatch => {
+    axios
+        .post('/api/users/retrieve', userData)
+        .then(res => {
+            if(res.data.success === true) {
+                dispatch({
+                    type: GET_SUCCESS,
+                    payload: res.data
+                })
+                dispatch({
+                    type: CLEAR_ERRORS,
+                    payload: res.data
+                })
+            }
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+            dispatch({
+                type: CLEAR_SUCCESS,
+                payload: err.response.data
+            })
+        })
+}
+
+// PASSWORD RESET - RESET PASSWORD
+export const resetPass = (token, userData) => dispatch => {
+    axios
+        .post(`/api/users/retrieve/${token}`, {userData})
+        .then(res => {
+            if(res.data.success === true) {
+                dispatch({
+                    type: GET_SUCCESS,
+                    payload: res.data
+                })
+                dispatch({
+                    type: CLEAR_ERRORS,
+                    payload: res.data
+                })
+            }
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+            dispatch({
+                type: CLEAR_SUCCESS,
                 payload: err.response.data
             })
         })

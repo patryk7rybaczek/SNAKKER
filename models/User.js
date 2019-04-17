@@ -9,7 +9,8 @@ const UserSchema = new Schema ({
     },
     email: {
         type: String,
-        require: true    
+        require: true,
+        uniqure: true,    
     },
     password: {
         type: String,  
@@ -18,6 +19,12 @@ const UserSchema = new Schema ({
     date: {
         type: Date,
         default: Date.now        
+    },
+    resetPasswordToken: {
+        type: String,
+    },
+    resetPasswordExpires: {
+        type: Date,
     }
 });
 

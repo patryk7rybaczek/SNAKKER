@@ -1,32 +1,30 @@
 import React, { Component } from 'react'
 import "./style.css";
 import Logo from "../../logo";
-
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
-import { SendRetrieveLink } from '../../actions/authActions';
+import { resetPass } from '../../actions/authActions';
 import classnames from 'classnames';
 
-export class Retrieve extends Component {
+export class verifyRetrieve extends Component {
 
   constructor(props) {
     super(props);
-    
     this.state = {
-      email: '',
+      password: '',
       errors: {},
       success: {}
     }
   }
 
   componentDidMount() {
-    // If user is logged in redirect to main route
-    if(this.props.auth.isAuthenticated) {
+    // Redirect user if authenticated try access login page
+    if (this.props.auth.isAuthenticated) {
       this.props.history.push('/');
     }
   }
-  componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps(nextProps) {
     if(nextProps.errors) {
       this.setState({
         errors: nextProps.errors
@@ -34,7 +32,7 @@ export class Retrieve extends Component {
     }
     if(nextProps.success) {
       this.setState({
-        success: nextProps.success,
+        success: nextProps.success
       })
     }
   }
@@ -46,17 +44,18 @@ export class Retrieve extends Component {
   onSubmit = e => {
     e.preventDefault();
 
-    const email = {
-      email: this.state.email
-    };
+    let url =  window.location.href;
+    let retrieveToken = url.substr(29);
 
-    this.props.SendRetrieveLink(email)
+    const userData = {
+      password: this.state.password
+    }
 
+    this.props.resetPass(retrieveToken, userData);
   }
 
   render() {
-
-    const { errors } = this.state
+    const { errors } = this.state;
     const { success } = this.state
 
     return (
@@ -66,23 +65,23 @@ export class Retrieve extends Component {
             </div>
             <form className="SignInForm" onSubmit={this.onSubmit}>
                 <h2 className="Heading-SignIn">Retrieve Account</h2>
-                <p className="OfferLink">Enter email associated with your Snakker accound</p>
-                <span className="error-span">{errors.email} {errors.emailnotfound}</span>
+                <p className="OfferLink">Enter your new password</p>
+                <label>Password</label>
                 <span className="success-span">{success.message}</span>
-                <label>E-mail</label>
+                <span className="error-span">{errors.password} {errors.passwordincorrect}</span>
                 <input 
-                  id="email" 
-                  name="email"
-                  type="email"
-                  error={errors.email} 
-                  onChange={this.onChange} 
+                  id="password"
+                  name="password" 
+                  type="password"
+                  error={errors.password} 
+                  onChange={this.onChange}
                   className={classnames('', {
-                    invalid: errors.email || errors.emailnotfound,
+                    invalid: errors.password || errors.passwordincorrect,
                     valid: success.message
                   })}
                 />
                 <div className="FormFooter">
-                    <button type="submit">Send Reset Instructions</button>
+                    <button>Change Password</button>
                 </div>
             </form>
         </div>
@@ -90,20 +89,17 @@ export class Retrieve extends Component {
   }
 }
 
-Retrieve.propTypes = {
-  SendRetrieveLink: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-  success: PropTypes.object.isRequired
+verifyRetrieve.propTypes = {
+    resetPass: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
+    success: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-  errors: state.error,
-  success: state.success
+    auth: state.auth,
+    errors: state.error,
+    success: state.success
 });
 
-export default connect(
-  mapStateToProps, 
-  { SendRetrieveLink }
-)(withRouter(Retrieve));
+export default connect(mapStateToProps, { resetPass })(withRouter(verifyRetrieve));

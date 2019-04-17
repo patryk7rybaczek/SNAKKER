@@ -14,6 +14,7 @@ import SignUpForm from './containers/Forms/SignUpForm';
 import Profile from './containers/Profile/Profile';
 import Retrieve from './containers/Forms/Retrieve';
 import LoggedIn from './containers/LoggedIn/LoggedIn';
+import verifyRetrieve from './containers/Forms/verifyRetrieve';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
@@ -46,6 +47,7 @@ class Root extends Component {
           <div className="Root">
             <Route path="/login" component={ SignInForm } />
             <Route path="/retrieve" component={ Retrieve } />
+            <Route path="/verify/:token" component={ verifyRetrieve }  />
             <Route path="/register" component={ SignUpForm } />
             <Switch>
               <PrivateRoute exact path="/" component={ LoggedIn } />

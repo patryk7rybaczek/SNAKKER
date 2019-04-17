@@ -7,6 +7,9 @@ const users = require('./routes/api/users');
 const PORT = 4000;
 const app = express();
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 // Middleware
 app.use(
     bodyParser.urlencoded({

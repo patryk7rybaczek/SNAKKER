@@ -6,10 +6,17 @@ const keys = require('../../config/keys');
 
 // Load input validation
 const validateLoginInput = require('../../validation/login');
+const validateRetrieve = require('../../validation/retrieve');
 const validateRegisterInput = require('../../validation/register');
-
+const ValidateNewPass = require('../../validation/newPass');
 // Load User Model
 const User = require('../../models/User');
+
+// Password Reset 
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+const async = require('async');
+
 
 // @ROUTE POST http://localhost:4000/api/users/register
 // @DESC REGISTER USER ROUTE
@@ -102,6 +109,127 @@ router.post('/login', (req,res) => {
                     .json({ passwordincorrect: 'Password incorrect' });
             }
         });
+    });
+});
+
+// @ROUTE POST http://localhost:4000/api/users/retrieve
+// @DESC RESET PASSWORD AND SEND LINK TO USERS EMAIL
+// @ACCESS PUBLIC
+router.post('/retrieve', (req, res, next) => {
+    // Validate body from request
+    const { errors, isValid } = validateRetrieve(req.body);
+
+    // Check validation
+    if (!isValid) {
+        return res.status(409).json(errors);
+    }
+
+    async.waterfall([
+        function(done) {
+            crypto.randomBytes(20, function(err, buf) {
+                let token = buf.toString('hex');
+                done(err,token);
+            });
+        },
+        function(token, done) {
+            User.findOne({ email: req.body.email }).then(user => {
+                // Check if user exists
+                if (!user) {
+                    return res.status(404).json({ emailnotfound: 'Email not found'});
+                }
+                
+                user.resetPasswordToken = token,
+                user.resetPasswordExpires = Date.now() + 3600000 // 1 hour valid
+                user.save(function(err) {
+                    done(err, token, user);
+                });
+            });
+        },
+        function(token, user, done) {
+            var stmpTransport = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: 'noreply.snakker@gmail.com',
+                    pass: process.env.GMAIL_PASS
+                }
+            });
+
+            var mailOptions = {
+                to: user.email,
+                from: 'noreply.snakker@gmail.com',
+                subject: 'Snakker password reset',
+                text: 'You are receiving this because you (or someone else) have required a password reset'+ '\n\n' +
+                    'Please click on the following link to complete the process ' + '\n\n' +
+                    'http://localhost:3000/verify/' + token + '\n\n' + 
+                    'If you did not request a password reset please ignore this mail.'
+            };
+
+            stmpTransport.sendMail(mailOptions, function(err) {
+                done(err, 'done');
+                return res.json({success: true, message: 'Email has been sent'})
+            });
+        }
+    ], function(err) {
+        if(err) return res.status(409).json(err);
+
+    });
+});
+
+// @ROUTE POST http://localhost:4000/api/users/retrieve/:token
+// @DESC RESET PASSWORD AND SEND LINK TO USERS EMAIL
+// @ACCESS PUBLIC
+router.post('/retrieve/:token' , function(req,res) {
+    // Validate body from request
+    const { errors, isValid } = ValidateNewPass(req.body.userData);
+    // Check validation
+    if (!isValid) {
+        return res.status(409).json(errors);
+    }
+    async.waterfall([
+        function(done) {
+            User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}}).then(user => {
+                // Check if user exists
+                if(!user) {
+                    return res.status(404).json({password: 'Password reset token is invalid or has expired!'});
+                }
+                const password = req.body.userData.password;
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(password, salt, (err, hash) => {
+                        if(err) throw err;
+
+                        user.resetPasswordToken = undefined;
+                        user.resetPasswordExpires = undefined;
+                        user.password = hash;
+                        user.save(function(err) {
+                            done(err, user);
+                        });
+                    });
+                });
+            });
+        }, 
+        function(user, done) {
+            var stmpTransport = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: 'noreply.snakker@gmail.com',
+                    pass: 'powerking!'
+                }
+            });
+
+            var mailOptions = {
+                to: user.email,
+                from: 'noreply.snakker@gmail.com',
+                subject: 'Password has been changed',
+                text: 'Hello,\n\n' +
+                    'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+            };
+            stmpTransport.sendMail(mailOptions, function(err) {
+                done(err);
+                return res.json({success: true, message: 'Password has been changed'})
+            });
+        }
+    ], function(err) {
+        if(err) return res.status(409).json(err);
     });
 });
 
