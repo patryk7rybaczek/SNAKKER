@@ -8,12 +8,12 @@ export default class Profile extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isUsersProfile: true,
-      username: null,
-      temp: '',
-      posts: [ 
+      //isUsersProfile: true,
+      //username: null,
+      //temp: '',
+      //posts: [ 
 
-      ]
+      //]
     }
   }
 

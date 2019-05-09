@@ -10,6 +10,9 @@
   margin-right: 1em;
   border-radius: 50%; }
 
+.profile a {
+  text-decoration: none; }
+
 .profile #username {
   color: #F1F1F1;
   font-size: 1.8em;

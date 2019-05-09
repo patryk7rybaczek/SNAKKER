@@ -51,6 +51,7 @@ class Root extends Component {
             <Route path="/register" component={ SignUpForm } />
             <Switch>
               <PrivateRoute exact path="/" component={ LoggedIn } />
+              <PrivateRoute exact path="/profile/:id" component={ Profile } />
             </Switch>
           </div>
         </Router>

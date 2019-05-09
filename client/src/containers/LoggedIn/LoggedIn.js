@@ -12,6 +12,7 @@ export default class LoggedIn extends Component {
     return (
       <div className="root">
         <Header/>
+        <Feed />
       </div>
     )
   }

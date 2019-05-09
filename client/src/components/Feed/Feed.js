@@ -1,18 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-import './style.css'
-import PostsList from './Post/PostsList'
-import Avatar from '../Header/ProfileSettings/avatar.jpg'
+import './style.css';
+import PostsList from './Post/PostsList';
+import Avatar from '../Header/ProfileSettings/avatar.jpg';
 
-export default class Feed extends Component {
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getPosts, addPost } from '../../actions/postActions';
+
+class Feed extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      temp: '',
-      posts: [ 
-
-      ],
+      text: '',
       welcomeId: 0,
+      errors: {},
       welcomeVarious: [
           {
               id: 0,
@@ -160,19 +162,7 @@ export default class Feed extends Component {
   }
 
   onChange = (event) => {
-    this.setState({temp: event.target.value})
-  }
-
-  onSubmit = (event) => {
-    event.preventDefault();
-    const newPost = {
-      postAuthor: 'Patryk Rybaczek', 
-      postContent: this.state.temp,
-      postLikes: 0,
-      postComments: 0
-    }
-
-    this.setState({posts:[newPost, ...this.state.posts], temp: ''})
+    this.setState({text: event.target.value})
   }
 
   componentDidMount() {
@@ -180,6 +170,15 @@ export default class Feed extends Component {
     let currentWelcomeId = Math.floor(Math.random() * 28)
     this.setState({ welcomeId: currentWelcomeId + 1 });
     }, 5000);
+    this.props.getPosts();
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    if(nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      })
+    }
   }
 
   onKeyDown = (event) => {
@@ -188,8 +187,24 @@ export default class Feed extends Component {
       this.onSubmit(event);
     }
   }
+  
+  onSubmit = (event) => {
+    event.preventDefault();
+    let userData = {
+      text: this.state.text,
+      author: this.props.auth.user.name
+    }
+    this.props.addPost(userData);
+    this.setState({ text: '' });
+  }
 
   render() {
+    const { posts } = this.props.post;
+    const { errors } = this.state
+
+    let postContent;
+    postContent = <PostsList posts={posts} />;
+
     let welcomeChanges = this.state.welcomeVarious[this.state.welcomeId % this.state.welcomeVarious.length]
 
     return (
@@ -198,26 +213,42 @@ export default class Feed extends Component {
           <h2>{welcomeChanges.content} {this.state.username}</h2>
           <h3>{welcomeChanges.lang}</h3>
         </div>
+        <div className="user-post">
+          <span className="error-span">{errors.text}</span>
+            <form onSubmit={this.onSubmit}>
+              <div className="textarea-wrapper">
+                <img src={Avatar} alt="user avatar"/>
+                <textarea onChange={this.onChange} onKeyDown={this.onKeyDown} value={this.state.text} type="text" name="Post" placeholder="What’s up, Patryk?" autoComplete="off"/>
+              </div>
+              <div className="button-wrapper">
+                <input onSubmit={this.onSubmit} className="btn-inp" type="submit" value="Publish" />
+              </div>
+            </form>
+        </div>
         <div className="feed">
-
-          <div className="user-post">
-              <form onSubmit={this.onSubmit}>
-                <div className="textarea-wrapper">
-                  <img src={Avatar} alt="user avatar"/>
-                  <textarea onChange={this.onChange} onKeyDown={this.onKeyDown} value={this.state.temp} type="text" name="Post" placeholder="What’s up, Patryk?" autoComplete="off"/>
-                </div>
-                <div className="button-wrapper">
-                  <input onSubmit={this.onSubmit} className="btn-inp" type="submit" value="Publish" />
-                </div>
-              </form>
+          <div className="friends-posts">
+            {postContent}
           </div>
-          
-          <PostsList
-            posts={this.state.posts}
-          />
-
         </div>
       </div>
     )
   }
 }
+
+Feed.propTypes = {
+  addPost: PropTypes.func.isRequired,
+  getPosts: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+  post: PropTypes.object
+};
+
+const mapStatetoProps = state => ({
+  auth: state.auth,
+  post: state.post,
+  errors: state.error
+});
+
+export default connect(
+  mapStatetoProps,
+  { getPosts, addPost })(Feed)

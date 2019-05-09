@@ -25,6 +25,9 @@ header .search ::-moz-placeholder {
 header .search :-ms-input-placeholder {
   color: #F1F1F1; }
 
+header .search input:focus {
+  width: 100% !important; }
+
 header .search button {
   width: 60px;
   border: none;

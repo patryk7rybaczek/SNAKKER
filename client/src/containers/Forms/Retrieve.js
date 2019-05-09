@@ -16,7 +16,7 @@ export class Retrieve extends Component {
     this.state = {
       email: '',
       errors: {},
-      success: {}
+      success: false
     }
   }
 
@@ -64,7 +64,7 @@ export class Retrieve extends Component {
             <div className="logo">
                 <Logo /> 
             </div>
-            <form className="SignInForm" onSubmit={this.onSubmit}>
+            <form className="SignInForm" noValidate onSubmit={this.onSubmit}>
                 <h2 className="Heading-SignIn">Retrieve Account</h2>
                 <p className="OfferLink">Enter email associated with your Snakker accound</p>
                 <span className="error-span">{errors.email} {errors.emailnotfound}</span>

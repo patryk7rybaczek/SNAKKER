@@ -15,7 +15,7 @@ class SignInForm extends Component {
     this.state = {
       email: '',
       password: '',
-      errors: {}
+      errors: {},
     }
   }
 
@@ -25,12 +25,12 @@ class SignInForm extends Component {
       this.props.history.push('/');
     }
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       // Redirect user to main page after login
       this.props.history.push('/');
     }
-    console.log(nextProps);
 
     if (nextProps.errors) {
       this.setState({
@@ -50,6 +50,7 @@ class SignInForm extends Component {
       email: this.state.email,
       password: this.state.password
     }
+
     // Since we handle the redirect within our component -
     // no need to pass this.props.history as parameter
     this.props.loginUser(userData);

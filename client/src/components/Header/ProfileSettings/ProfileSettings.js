@@ -37,7 +37,7 @@ class ProfileSettings extends Component {
     return (
       <div className="profile">
         <img src={Avatar} alt="user avatar"/>
-        <Link to={'/'}>
+        <Link to={`/profile/${user.id}`}>
           <span id="username">{user.name}</span>
         </Link>
         <div className="profile-menu-container">
@@ -48,7 +48,9 @@ class ProfileSettings extends Component {
           { isOpen ? (
             <ul className="profile-menu">
               <li>Admin panel</li>
-              <li>My profile</li>
+              <Link to={`/profile/${user.id}`}>
+                <li>My profile</li>
+              </Link>
               <li onClick={this.onLogoutClick}>Sign out</li>
             </ul>
           ) : ( null )}
@@ -67,5 +69,5 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, {logoutUser})(ProfileSettings)
+export default connect(mapStateToProps, { logoutUser })(ProfileSettings)
   
