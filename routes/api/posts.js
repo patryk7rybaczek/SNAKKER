@@ -4,6 +4,7 @@ const router = express.Router();
 const passport = require('passport');
 // Post validate
 const validatePostInput = require('../../validation/post');
+const validateEditPostInput = require('../../validation/editPost');
 
 // Post Model 
 const Post = require('../../models/Post');
@@ -60,10 +61,11 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res)
 // @DESC EDIT POST
 // @ACCESS PRIVATE
 router.patch('/edit/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-    const { errors, isValid } = validatePostInput(req.body);
+
+    const { errors, isValid } = validateEditPostInput(req.body);
     // Check Validation
     if (!isValid) {
-        return res.status(400).json({ errors });
+        return res.status(400).json(errors);
     }
 
     User.findOne({ user: req.user.id }).then(user => {
@@ -75,7 +77,7 @@ router.patch('/edit/:id', passport.authenticate('jwt', { session: false }), (req
                 }
 
                 post.text = req.body.text
-                post.save().then(post => res.json({success: true}))
+                post.save().then(post => res.json({ success: true }))
                 .catch(err => console.log(err));
             })
             .catch(err => res.status(404).json({ postnotfound: 'Post not found' }))

@@ -11,6 +11,7 @@ class Post extends Component {
     super(props)
     this.state = {
       errors: {},
+      showError: false,
       newPostText: '',
       editPostMode: false,
       toggleComments: false,
@@ -81,27 +82,24 @@ class Post extends Component {
     e.preventDefault();
     let newText = this.state.newPostText;
     let updatedPost = {
-      text: newText
+      text: newText,
+      id: this.state.postID
     }
     this.props.editPost(id, updatedPost);
 
   }
 
   componentWillReceiveProps = (nextProps) => {
+    if(nextProps.errors.editTextID === this.state.postID) {
+      this.setState({ showError: true })
+    } else {
+      this.setState({ showError: false });
+      this.setState({editPostMode: false});
+      this.setState({togglePostActions: false});
+    }
     if(nextProps.errors) {
       this.setState({
         errors: nextProps.errors
-      })
-    }
-    if(Object.keys(nextProps.errors).length === 0) {
-      this.setState({
-        togglePostActions: false,
-        editPostMode: false
-      })
-    } else {
-      this.setState({
-        togglePostActions: true,
-        editPostMode: true
       })
     }
   }
@@ -110,14 +108,17 @@ class Post extends Component {
 
     const { errors } = this.state
     const { post, auth } = this.props
+    const showError = this.state.showError
     const editPostMode = this.state.editPostMode
     const toggleComments = this.state.toggleComments
     const togglePostActions = this.state.togglePostActions
-
+    
     return (
         <div className="post-separator">
           <div className="post">
-            <span className="error-span">{errors.text}</span>
+          { showError ? (
+            <span className="error-span">{errors.editText}</span>
+          ) : ( null )}
             <div className="top-section top-section-edit">
               <div className="user-post-info">
                 <img src={Avatar} alt="user avatar" />

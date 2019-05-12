@@ -14,7 +14,6 @@ class PostList extends Component {
 
     return ( 
       <div>
-      <p>WTF</p>
         { posts.map(post => <Post key={post._id} post={post} />) }
       </div>
     )
