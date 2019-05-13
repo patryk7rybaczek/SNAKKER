@@ -102,13 +102,30 @@ export const unlikePost = id => dispatch => {
         }))
 }
 
-// POST - Comment post
+// Comment - Comment post
 export const addComment = (id, userData) => dispatch => {
     axios
         .post(`/api/posts/comment/${id}`, userData)
-        .then(res => dispatch(getPosts()))
+        .then(res => {
+            dispatch({
+                type: CLEAR_ERRORS,
+                payload: null
+            })
+            dispatch(getPosts())
+        })
         .catch(err => dispatch({
             type: GET_ERRORS,
+            payload: err.response.data
+        }))
+}
+
+// Comment - Delete Comment
+export const deleteComment = (postID, commentID) => dispatch => {
+    axios
+        .delete(`/api/posts/comment/${postID}/${commentID}`)
+        .then(res => dispatch(getPosts()))
+        .catch(err => dispatch({
+            type: GET_ERRORS,   
             payload: err.response.data
         }))
 }

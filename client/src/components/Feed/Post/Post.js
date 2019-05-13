@@ -148,7 +148,7 @@ class Post extends Component {
                   (
                     <form onSubmit={e => this.onPostUpdate(e, post._id)}>
                       <textarea onChange={this.onPostChange} onKeyDown={e => this.onPostKeyDown(e, post._id)} value={this.state.newPostText}>
-					  </textarea>
+					            </textarea>
                       <button type="submit">submit</button>
                     </form>
                   ) : (<p>{post.text}</p>)
@@ -174,7 +174,7 @@ class Post extends Component {
             </div>
             <div className="comment-section">
               { toggleComments ? 
-              (<UserCommentList comments={post.comments} postID={post._id} /> )
+              (<UserCommentList comments={post.comments} post={post} /> )
               :(null) }
             </div>
             

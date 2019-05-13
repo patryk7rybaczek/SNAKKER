@@ -203,10 +203,10 @@ class Feed extends Component {
 }
 
 Feed.propTypes = {
-  getPosts: PropTypes.func.isRequired,
+  post: PropTypes.object,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-  post: PropTypes.object
+  getPosts: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({

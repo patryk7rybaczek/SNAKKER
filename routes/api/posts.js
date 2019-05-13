@@ -6,6 +6,10 @@ const passport = require('passport');
 const validatePostInput = require('../../validation/post');
 const validateEditPostInput = require('../../validation/editPost');
 
+// Comment validate
+const validateCommentInput = require('../../validation/comment');
+const validateEditCommentInput = require('../../validation/editComment');
+
 // Post Model 
 const Post = require('../../models/Post');
 
@@ -38,7 +42,6 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) 
 // @DESC PUBLISH POST
 // @ACCESS PRIVATE
 router.post('/add', passport.authenticate('jwt', { session: false }), (req, res) => {
-
     const { errors, isValid } = validatePostInput(req.body);
 
     // Check Validation
@@ -71,7 +74,7 @@ router.patch('/edit/:id', passport.authenticate('jwt', { session: false }), (req
     User.findOne({ user: req.user.id }).then(user => {
         Post.findById(req.params.id)
             .then(post => {
-                // Check if user is authorized to remove post
+                // Check if user is authorized to edit post
                 if(post.user.toString() !== req.user.id) {
                     return res.status(401).json({ notauthorized: 'Not Authorized'})
                 }
@@ -161,22 +164,24 @@ router.post('/unlike/:id', passport.authenticate('jwt', { session: false }), (re
 // @ROUTE POST http://localhost:4000/api/posts/comment/:id
 // @DESC ADD COMMENT POST
 // @ACCESS PRIVATE
-router.post('/comment/:id', (req,res) => {
+router.post('/comment/:id', passport.authenticate('jwt', { session: false }), (req,res) => {
 
-    const { errors, isValid } = validatePostInput(req.body)
-    //Check validation
+    const { errors, isValid } = validateCommentInput(req.body)
+
+    // Check validation 
     if (!isValid) {
         return res.status(400).json(errors);
     }
+
     Post.findById(req.params.id)
         .then(post => {
             const newComment = {
-                user: req.body.id,
+                user: req.user.id,
                 text: req.body.text,
                 author: req.body.author                
             };
 
-            // Add comment to commmentArray in Posts Model
+            // Add comment to commmentArray in Post
             post.comments.unshift(newComment);
 
             post.save().then(post => res.json(post));
@@ -187,22 +192,20 @@ router.post('/comment/:id', (req,res) => {
 // @ROUTE POST http://localhost:4000/api/posts/comment/:id/:comment_id
 // @DESC REMOVE COMMENT POST
 // @ACCESS PRIVATE
-router.delete('/comment/:id/:comment_id', (req,res) => {
-    console.log(req.params)
+router.delete('/comment/:id/:comment_id', passport.authenticate('jwt', { session: false }), (req,res) => {
     Post.findById(req.params.id)
         .then(post =>  {
-            // Check if comment exists
             if (
                 post.comments.filter(
                     comment => comment._id.toString() === req.params.comment_id
-                    ).length === 0
+                  ).length === 0
             ) {
                 return res
                     .status(404)
                     .json({ nocommentyet: 'You have not created a comment to this post' })
             }
 
-            //
+            // We find the id matching our from request to find comment
             const removeIndex = post.comments
                 .map(item => item._id.toString())
                 .indexOf(req.params.comment_id);
@@ -211,8 +214,7 @@ router.delete('/comment/:id/:comment_id', (req,res) => {
             post.comments.splice(removeIndex, 1);
             post.save().then(post => res.json(post));
         })
-        .catch( err => res.status( 404 ).json( { postnotfound: 'No post found!' } ) );
-
+        .catch(err => res.status(404).json({postnotfound: 'No post found!'}));
 })
 
 module.exports = router;
