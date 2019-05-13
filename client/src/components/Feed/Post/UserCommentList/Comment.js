@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './style.css'
 import { deleteComment } from '../../../../actions/postActions';
+import * as moment from 'moment';
 
 class Comment extends Component {
 	constructor(props) {
@@ -25,9 +26,12 @@ class Comment extends Component {
 
       return (
         <div className="user-comment">
-            <div className="user-info">
+            <div className="user-comment-info">
               <img src={Avatar}  alt="user avatar"/>
-              <a href="">{comment.author}</a>
+                <div className="user-info">
+                  <a href="">{comment.author}</a>
+                  <span className="user-post-timestamp">{moment(comment.date).format('YYYY-MM-DD H:m ')}</span>
+                </div>
                 { comment.user === auth.user.id ? (
                   <div className="user-post-settings">
                     <span onClick={this.deleteComment.bind(this, comment._id)}>Remove</span>

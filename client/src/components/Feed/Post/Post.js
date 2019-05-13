@@ -126,9 +126,8 @@ class Post extends Component {
               <div className="user-post-info">
                 <img src={Avatar} alt="user avatar" />
                 <div className="user-info">
-                  <p>{post.author}</p>
+                  <a href="">{post.author}</a>
                   <span className="user-post-timestamp">{moment(post.date).format('YYYY-MM-DD H:m ')}</span>
-                  
                 </div>
 				      </div>
               { post.user === auth.user.id ? (
