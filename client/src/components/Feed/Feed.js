@@ -179,6 +179,7 @@ class Feed extends Component {
 
   render() {
     const { posts } = this.props.post;
+    const { auth } = this.props.auth;
 
     let postContent;
     postContent = <PostsList posts={posts} />;
@@ -192,7 +193,7 @@ class Feed extends Component {
           <h3>{welcomeChanges.lang}</h3>
         </div>
         <div className="feed">
-          <PostForm />
+          <PostForm auth={auth}/>
           <div className="friends-posts">
             {postContent}
           </div>

@@ -44,7 +44,7 @@ class PostForm extends Component {
   }
 
   render() {
-
+    const { auth } = this.props
     const { errors } = this.state
 
     return (
@@ -60,7 +60,7 @@ class PostForm extends Component {
                     value={this.state.text} 
                     type="text" 
                     name="Post" 
-                    placeholder="What’s up, Patryk?" 
+                    placeholder={"What’s up, " + auth.user.name +" ? "}
                     autoComplete="off" >
                   </textarea>
                 </div>
