@@ -5,6 +5,7 @@ import './style.css'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deletePost, addPost, likePost, unlikePost, editPost } from '../../../actions/postActions';
+import * as moment from 'moment';
 
 class Post extends Component {
   constructor(props) {
@@ -116,13 +117,18 @@ class Post extends Component {
     return (
         <div className="post-separator">
           <div className="post">
-          { showError ? (
-            <span className="error-span">{errors.editText}</span>
-          ) : ( null )}
+            <div className="error-container">
+              { showError ? (
+                <span className="error-span">{errors.editText}</span>
+              ) : ( null )}
+            </div>
             <div className="top-section top-section-edit">
               <div className="user-post-info">
                 <img src={Avatar} alt="user avatar" />
-			  	      <p>{post.author}</p>
+                <div className="user-info">
+                  <p>{post.author}</p>
+                  <span className="user-post-timestamp">{moment(post.date).format('YYYY-MM-DD H:m ')}</span>
+                </div>
 				      </div>
               { post.user === auth.user.id ? (
                 <div className="user-post-settings">
@@ -149,7 +155,6 @@ class Post extends Component {
                     <form onSubmit={e => this.onPostUpdate(e, post._id)}>
                       <textarea onChange={this.onPostChange} onKeyDown={e => this.onPostKeyDown(e, post._id)} value={this.state.newPostText}>
 					            </textarea>
-                      <button type="submit">submit</button>
                     </form>
                   ) : (<p>{post.text}</p>)
                 }

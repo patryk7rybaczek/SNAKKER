@@ -79,7 +79,10 @@ router.patch('/edit/:id', passport.authenticate('jwt', { session: false }), (req
                     return res.status(401).json({ notauthorized: 'Not Authorized'})
                 }
 
+                let now = Date.now()
+
                 post.text = req.body.text
+                post.date = now
                 post.save().then(post => res.json({ success: true }))
                 .catch(err => console.log(err));
             })
