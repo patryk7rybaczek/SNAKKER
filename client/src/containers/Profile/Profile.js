@@ -1,83 +1,62 @@
 import React, { Component } from 'react'
 import './style.css'
-import PostsList from './Post/PostsList'
 import Header from '../../components/Header/Header'
 import Avatar from '../../components/Header/ProfileSettings/avatar.jpg'
+import { connect } from 'react-redux';
+import { getPostsById } from '../../actions/postActions';
+import PropTypes from 'prop-types';
+import PostForm from '../../components/Feed/PostForm/PostForm'
+import PostsList  from '../../components/Feed/Post/PostsList'
 
-export default class Profile extends Component {
+class Profile extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      //isUsersProfile: true,
-      //username: null,
-      //temp: '',
-      //posts: [ 
 
-      //]
     }
   }
 
-  componentDidMount = () => {
-    let username = this.props.match.params.username;
-    this.setState({ username: username });
-    console.log();
-  }
-
-  onChange = (event) => {
-    this.setState({temp: event.target.value})
-  }
-
-  onKeyDown = (event) => {
-    if(event.keyCode === 13) {
-      event.preventDefault();
-      this.onSubmit(event);
-    }
-  }
-
-  onSubmit = (event) => {
-    event.preventDefault()
-    let newPost = {
-      postId: 1,
-      postAuthor: 'Patryk Rybaczek', 
-      postContent: this.state.temp,
-      postLikes: 0,
-      postComments: 0
-    }
-
-    this.setState({posts:[newPost, ...this.state.posts], temp: ''})
+  componentDidMount() {
+    this.props.getPostsById(this.props.match.params.id);
   }
 
   render() {
-    const isUsersProfile = this.state.isUsersProfile
+    let username;
+    const { posts } = this.props.post;
+    const { auth } = this.props.auth;
+    posts.map(post => username = post.author)
+
+    let postContent
+    postContent = <PostsList posts={posts} />
     return (
       <div>
         <Header />
-
-        <div className="feed profile-feed">
-          <div className="banner">
-            <h2> {this.state.username} </h2>
+        <div className="banner">
+          <h2>{username}</h2>
+        </div>
+        <div className="feed">
+          <PostForm />
+          <div className="friends-posts">
+            {postContent}
           </div>
-          {isUsersProfile ?(
-          <div className="user-post">
-            <form onSubmit={this.onSubmit}>
-              <div className="textarea-wrapper">
-                <img src={Avatar} alt="user avatar"/>
-                <textarea onChange={this.onChange} onKeyDown={this.onKeyDown} value={this.state.temp} type="text" name="Post" placeholder="What’s up, Patryk?" autoComplete="off"/>
-              </div>
-              <div className="button-wrapper">
-                <input onSubmit={this.onSubmit} className="btn-inp" type="submit" value="Publish" />
-              </div>
-            </form>
-          </div>
-          ) : (
-            null
-          )}
-
-          <PostsList
-            posts={this.state.posts}
-          />
-        </div>  
+        </div> 
       </div>
     )
   }
 }
+
+Profile.propTypes = {
+  post: PropTypes.object,
+  auth: PropTypes.object.isRequired,
+  getPostsById: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  post: state.post,
+  errors: state.error
+});
+
+export default connect(
+  mapStateToProps, { getPostsById })(Profile);

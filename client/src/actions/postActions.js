@@ -7,7 +7,23 @@ import {
     DELETE_POST, 
     POST_LOADING,
     CLEAR_ERRORS,
+    GET_POST,
 } from './types';
+
+// POST - Get post by id 
+export const getPost = (id) => dispatch => {
+    dispatch(setPostLoading());
+    axios
+        .get(`/api/posts/${id}`)
+            .then(res => dispatch({
+                type: GET_POST,
+                payload: res.data
+            }))
+            .catch(err => dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            }))
+}
 
 // POST - Get all posts
 export const getPosts = () => dispatch => {
@@ -17,6 +33,21 @@ export const getPosts = () => dispatch => {
             .then(res => dispatch({
                 type: GET_POSTS,
                 payload: res.data
+            }))
+            .catch(err => dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            }))
+}
+
+// POST - Get all posts by user id
+export const getPostsById = (id) => dispatch => {
+    dispatch(setPostLoading());
+    axios
+        .get(`/api/profile/${id}`)
+            .then(res => dispatch({
+                type: GET_POSTS,
+                payload: res.data                
             }))
             .catch(err => dispatch({
                 type: GET_ERRORS,
@@ -54,7 +85,7 @@ export const editPost = (id, userData) => dispatch => {
                     payload: null
                 })
                 if(res.data.success === true) {
-                    dispatch(getPosts())
+                    dispatch(getPost(id))
                 }
             })
             .catch(err => dispatch({
@@ -84,7 +115,7 @@ export const deletePost = id => dispatch => {
 export const likePost = id => dispatch => {
     axios
         .post(`/api/posts/like/${id}`)
-        .then(res => dispatch(getPosts()))
+        .then(res => dispatch(getPost(id)))
         .catch(err => dispatch({
             type: GET_ERRORS,
             payload: err.response.data
@@ -95,7 +126,7 @@ export const likePost = id => dispatch => {
 export const unlikePost = id => dispatch => {
     axios
         .post(`/api/posts/unlike/${id}`)
-        .then(res => dispatch(getPosts()))
+        .then(res => dispatch(getPost(id)))
         .catch(err => dispatch({
             type: GET_ERRORS,
             payload: err.response.data
@@ -111,7 +142,7 @@ export const addComment = (id, userData) => dispatch => {
                 type: CLEAR_ERRORS,
                 payload: null
             })
-            dispatch(getPosts())
+            dispatch(getPost(id))
         })
         .catch(err => dispatch({
             type: GET_ERRORS,
@@ -123,7 +154,7 @@ export const addComment = (id, userData) => dispatch => {
 export const deleteComment = (postID, commentID) => dispatch => {
     axios
         .delete(`/api/posts/comment/${postID}/${commentID}`)
-        .then(res => dispatch(getPosts()))
+        .then(res => dispatch(getPost(postID)))
         .catch(err => dispatch({
             type: GET_ERRORS,   
             payload: err.response.data

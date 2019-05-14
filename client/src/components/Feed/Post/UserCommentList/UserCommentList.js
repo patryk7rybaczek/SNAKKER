@@ -65,8 +65,8 @@ class UserCommentList extends Component {
                 { commentsContent }
                 <div className="comment-post">
                 { showError ? (<span className="error-span">{errors.commentText}</span>):(null)}
-                    <img src={Avatar} alt="user avatar"/>
                     <form onSubmit={e => this.onSubmit(e)}>
+                        <img src={Avatar} alt="user avatar"/>
                         <textarea onChange={this.onChange} onKeyDown={e => this.onCommentKeyDown(e)} value={this.state.text} name="user-comment" type="text" placeholder="Write a comment..."/>
                     </form>
                 </div>

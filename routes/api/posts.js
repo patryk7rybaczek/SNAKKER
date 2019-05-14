@@ -17,6 +17,16 @@ const Post = require('../../models/Post');
 const User = require('../../models/User');
 
 // @ROUTE GET http://localhost:4000/api/posts
+// @DESC GET POST BY ID
+// @ACCESS PRIVATE
+router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+    Post.findById(req.params.id)
+        .sort({date: -1})
+        .then(post => res.json(post))
+        .catch(err => res.status(404).json({ nopostfound: 'No post found with that id' }));
+});
+
+// @ROUTE GET http://localhost:4000/api/posts
 // @DESC GET ALL POSTS
 // @ACCESS PRIVATE
 
@@ -26,17 +36,6 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
         .then(posts => res.json(posts))
         .catch(err => res.status(404).json({ nopostsfound: 'No posts found'}));
 });
-
-// @ROUTE GET api/post/:id
-// @DESC GET post by id
-// @ACCESS PRIVATE
-router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-    Post.findById(req.params.id)
-      .then(post => res.json(post))
-      .catch(err =>
-        res.status(404).json({ nopostfound: 'No post found with that id' })
-      );
-  });
 
 // @ROUTE POST http://localhost:4000/api/posts/add
 // @DESC PUBLISH POST

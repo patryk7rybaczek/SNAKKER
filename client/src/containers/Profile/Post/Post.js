@@ -82,7 +82,7 @@ export default class Post extends Component {
           <div className="top-section top-section-edit">
             <div className="user-post-info">
               <img src={Avatar} alt="user avatar" />
-              <p>{post.postAuthor}</p>
+              <a href="yoyo">{post.postAuthor}</a>
             </div>
 
             { isUsersProfile ?(

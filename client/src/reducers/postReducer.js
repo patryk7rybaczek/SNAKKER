@@ -29,13 +29,15 @@ export default function(state = initialState, action) {
         case GET_POST:
             return {
                 ...state,
-                post: action.payload,
+                posts: state.posts.map( post =>
+                    (post._id===action.payload._id) ? 
+                        action.payload:post),
                 loading: false
-            };
+            };           
         case ADD_POST:
             return {
                 ...state,
-                posts:[action.payload, ...state.posts]
+                posts: [action.payload, ...state.posts]
             }
         case EDIT_POST: 
             return {

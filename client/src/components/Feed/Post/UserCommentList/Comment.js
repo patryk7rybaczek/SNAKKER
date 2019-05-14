@@ -27,10 +27,14 @@ class Comment extends Component {
       return (
         <div className="user-comment">
             <div className="user-comment-info">
-              <img src={Avatar}  alt="user avatar"/>
                 <div className="user-info">
-                  <a href="">{comment.author}</a>
-                  <span className="user-post-timestamp">{moment(comment.date).format('YYYY-MM-DD H:m ')}</span>
+                  <div className="comment-content">
+                    <img src={Avatar}  alt="user avatar"/>
+                    <div>
+                      <a href="">{comment.author}</a>
+                      <span className="user-post-timestamp">{moment(comment.date).format('YYYY-MM-DD HH:mm')}</span>
+                    </div>
+                  </div>
                 </div>
                 { comment.user === auth.user.id ? (
                   <div className="user-post-settings">

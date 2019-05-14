@@ -5,12 +5,7 @@ import Post from './Post';
 import './style.css'
 class PostList extends Component {
   render () {
-    const { posts, loading } = this.props;
-    let postcontent;
-
-    if(posts === null || loading || Object.keys(posts).length === 0) {
-
-    }
+    const { posts } = this.props;
 
     return ( 
       <div>

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deletePost, addPost, likePost, unlikePost, editPost } from '../../../actions/postActions';
 import * as moment from 'moment';
+import { Link } from 'react-router-dom';
 
 class Post extends Component {
   constructor(props) {
@@ -117,19 +118,19 @@ class Post extends Component {
     return (
         <div className="post-separator">
           <div className="post">
-            <div className="error-container">
-              { showError ? (
-                <span className="error-span">{errors.editText}</span>
-              ) : ( null )}
-            </div>
             <div className="top-section top-section-edit">
               <div className="user-post-info">
                 <img src={Avatar} alt="user avatar" />
                 <div className="user-info">
-                  <a href="">{post.author}</a>
-                  <span className="user-post-timestamp">{moment(post.date).format('YYYY-MM-DD H:m ')}</span>
+                  <Link to={"/profile/" + post.user}>{post.author}</Link>
+                  <span className="user-post-timestamp">{moment(post.date).format('YYYY-MM-DD HH:mm ')}</span>
                 </div>
 				      </div>
+              <div className="error-container">
+                { showError ? (
+                  <span className="error-span">{errors.editText}</span>
+                ) : ( null )}
+              </div>
               { post.user === auth.user.id ? (
                 <div className="user-post-settings">
                   <button onClick={this.togglePostActions.bind(this, post._id)}><i className="fas fa-ellipsis-v"></i></button>
