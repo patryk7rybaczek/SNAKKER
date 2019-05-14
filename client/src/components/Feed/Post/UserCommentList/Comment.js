@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './style.css'
 import { deleteComment, getPostsById } from '../../../../actions/postActions';
-import * as moment from 'moment';
 import { Link } from 'react-router-dom';
+import TimeAgo from 'react-timeago'
 
 class Comment extends Component {
 	constructor(props) {
@@ -37,7 +37,7 @@ class Comment extends Component {
                     <img src={Avatar}  alt="user avatar"/>
                     <div>
                       <Link onClick={() => this.onUsernameClick(comment.user)}  to={"/profile/" + comment.user}>{comment.author}</Link>
-                      <span className="user-post-timestamp">{moment(comment.date).format('YYYY-MM-DD HH:mm')}</span>
+                      <span><TimeAgo date={comment.date}/></span>
                     </div>
                   </div>
                 </div>

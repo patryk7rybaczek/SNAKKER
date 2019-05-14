@@ -5,8 +5,8 @@ import './style.css'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { deletePost, addPost, likePost, unlikePost, editPost, getPostsById } from '../../../actions/postActions';
-import * as moment from 'moment';
 import { Link } from 'react-router-dom';
+import TimeAgo from 'react-timeago'
 
 class Post extends Component {
   constructor(props) {
@@ -127,7 +127,7 @@ class Post extends Component {
                 <img src={Avatar} alt="user avatar" />
                 <div className="user-info">
                   <Link onClick={() => this.onUsernameClick(post.user)} to={"/profile/" + post.user}>{post.author}</Link>
-                  <span className="user-post-timestamp">{moment(post.date).format('YYYY-MM-DD HH:mm ')}</span>
+                  <span><TimeAgo date={post.date}/></span>
                 </div>
 				      </div>
               <div className="error-container">
