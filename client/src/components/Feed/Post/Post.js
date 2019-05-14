@@ -4,7 +4,7 @@ import UserCommentList from './UserCommentList/UserCommentList'
 import './style.css'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { deletePost, addPost, likePost, unlikePost, editPost } from '../../../actions/postActions';
+import { deletePost, addPost, likePost, unlikePost, editPost, getPostsById } from '../../../actions/postActions';
 import * as moment from 'moment';
 import { Link } from 'react-router-dom';
 
@@ -19,6 +19,10 @@ class Post extends Component {
       toggleComments: false,
       togglePostActions: false
     }
+  }
+
+  onUsernameClick = (id) => {
+    this.props.getPostsById(id)
   }
 
   // Toggle Comments 
@@ -122,7 +126,7 @@ class Post extends Component {
               <div className="user-post-info">
                 <img src={Avatar} alt="user avatar" />
                 <div className="user-info">
-                  <Link to={"/profile/" + post.user}>{post.author}</Link>
+                  <Link onClick={() => this.onUsernameClick(post.user)} to={"/profile/" + post.user}>{post.author}</Link>
                   <span className="user-post-timestamp">{moment(post.date).format('YYYY-MM-DD HH:mm ')}</span>
                 </div>
 				      </div>
@@ -192,6 +196,7 @@ class Post extends Component {
 
 
 Post.propTypes = {
+  getPostsById: PropTypes.func.isRequired,
   deletePost: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,
   editPost: PropTypes.func.isRequired, 
@@ -207,4 +212,4 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, 
-  {deletePost, addPost, likePost, unlikePost, editPost})(Post);
+  {deletePost, addPost, likePost, unlikePost, editPost, getPostsById})(Post);

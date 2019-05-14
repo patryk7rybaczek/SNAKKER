@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import PostsList from './Post/PostsList';
 import PostForm from './PostForm/PostForm';
 
-import Avatar from '../Header/ProfileSettings/avatar.jpg';
 import './style.css';
 
 import PropTypes from 'prop-types';
@@ -160,13 +159,19 @@ class Feed extends Component {
       ]
     }
   }
-
+  
   componentDidMount() {
     this.timeout = setInterval(() => {
     let currentWelcomeId = Math.floor(Math.random() * 28)
     this.setState({ welcomeId: currentWelcomeId + 1 });
     }, 5000);
     this.props.getPosts();
+  }
+
+  componentWillUnmount(){
+    this.setState = (state,callback)=>{
+      return;
+    };
   }
 
   componentWillReceiveProps = (nextProps) => {

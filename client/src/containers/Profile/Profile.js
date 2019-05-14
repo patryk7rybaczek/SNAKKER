@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import './style.css'
 import Header from '../../components/Header/Header'
-import Avatar from '../../components/Header/ProfileSettings/avatar.jpg'
 import { connect } from 'react-redux';
 import { getPostsById } from '../../actions/postActions';
 import PropTypes from 'prop-types';
@@ -23,7 +22,6 @@ class Profile extends Component {
   render() {
     let username;
     const { posts } = this.props.post;
-    const { auth } = this.props.auth;
     posts.map(post => username = post.author)
 
     let postContent
@@ -31,11 +29,13 @@ class Profile extends Component {
     return (
       <div>
         <Header />
-        <div className="banner">
+        <div className="banner banner-margin">
           <h2>{username}</h2>
         </div>
         <div className="feed">
-          <PostForm />
+          { this.props.match.params.id === this.props.post.user ? (
+            <PostForm />
+          ):(null)}
           <div className="friends-posts">
             {postContent}
           </div>

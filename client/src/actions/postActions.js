@@ -45,10 +45,12 @@ export const getPostsById = (id) => dispatch => {
     dispatch(setPostLoading());
     axios
         .get(`/api/profile/${id}`)
-            .then(res => dispatch({
-                type: GET_POSTS,
-                payload: res.data                
-            }))
+            .then(res => {
+                dispatch({
+                    type: GET_POSTS,
+                    payload: res.data                
+                })
+            })
             .catch(err => dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data

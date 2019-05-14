@@ -4,7 +4,8 @@ import {
     ADD_POST, 
     DELETE_POST, 
     POST_LOADING,
-    EDIT_POST
+    EDIT_POST,
+    UPDATE_POST,
 } from '../actions/types';
 
 const initialState = {
@@ -27,6 +28,14 @@ export default function(state = initialState, action) {
                 loading: false
             };
         case GET_POST:
+            return {
+                ...state,
+                posts: state.posts.map( post =>
+                    (post._id===action.payload._id) ? 
+                        action.payload:post),
+                loading: false
+            }
+        case UPDATE_POST:
             return {
                 ...state,
                 posts: state.posts.map( post =>

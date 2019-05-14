@@ -3,8 +3,9 @@ import Avatar from '../../../Header/ProfileSettings/avatar.jpg'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import './style.css'
-import { deleteComment } from '../../../../actions/postActions';
+import { deleteComment, getPostsById } from '../../../../actions/postActions';
 import * as moment from 'moment';
+import { Link } from 'react-router-dom';
 
 class Comment extends Component {
 	constructor(props) {
@@ -12,7 +13,11 @@ class Comment extends Component {
 		this.state = {
 
 		}
-	}
+  }
+  
+  onUsernameClick = (id) => {
+    this.props.getPostsById(id)
+  }
 
 	deleteComment = (id) => {
     let postID = this.props.post._id;
@@ -31,7 +36,7 @@ class Comment extends Component {
                   <div className="comment-content">
                     <img src={Avatar}  alt="user avatar"/>
                     <div>
-                      <a href="">{comment.author}</a>
+                      <Link onClick={() => this.onUsernameClick(comment.user)}  to={"/profile/" + comment.user}>{comment.author}</Link>
                       <span className="user-post-timestamp">{moment(comment.date).format('YYYY-MM-DD HH:mm')}</span>
                     </div>
                   </div>
@@ -49,9 +54,10 @@ class Comment extends Component {
   }
   
   Comment.propTypes = {
+    deleteComment: PropTypes.func.isRequired,
+    getPostsById: PropTypes.func.isRequired,
     comment: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
-    deleteComment: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     post: PropTypes.object.isRequired,
   }
@@ -61,5 +67,5 @@ class Comment extends Component {
     errors: state.error
   })
   
-  export default connect(mapStateToProps, {deleteComment})(Comment);
+  export default connect(mapStateToProps, {deleteComment, getPostsById})(Comment);
   
