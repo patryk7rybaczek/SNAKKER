@@ -8,6 +8,7 @@ import {
     POST_LOADING,
     CLEAR_ERRORS,
     GET_POST,
+    GET_USERS_POSTS
 } from './types';
 
 // POST - Get post by id 
@@ -47,8 +48,8 @@ export const getPostsById = (id) => dispatch => {
         .get(`/api/profile/${id}`)
             .then(res => {
                 dispatch({
-                    type: GET_POSTS,
-                    payload: res.data                
+                    type: GET_USERS_POSTS,
+                    payload: res.data        
                 })
             })
             .catch(err => dispatch({

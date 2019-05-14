@@ -8,7 +8,6 @@ const validateEditPostInput = require('../../validation/editPost');
 
 // Comment validate
 const validateCommentInput = require('../../validation/comment');
-const validateEditCommentInput = require('../../validation/editComment');
 
 // Post Model 
 const Post = require('../../models/Post');
@@ -21,7 +20,7 @@ const User = require('../../models/User');
 // @ACCESS PRIVATE
 router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
     Post.findById(req.params.id)
-        .sort({date: -1})
+        .sort({ date: -1 })
         .then(post => res.json(post))
         .catch(err => res.status(404).json({ nopostfound: 'No post found with that id' }));
 });

@@ -5,7 +5,7 @@ import {
     DELETE_POST, 
     POST_LOADING,
     EDIT_POST,
-    UPDATE_POST,
+    GET_USERS_POSTS,
 } from '../actions/types';
 
 const initialState = {
@@ -27,22 +27,20 @@ export default function(state = initialState, action) {
                 posts: action.payload,
                 loading: false
             };
+        case GET_USERS_POSTS:
+            return {
+                ...state,
+                posts: action.payload.reverse(),
+                loading: false
+            };
         case GET_POST:
             return {
                 ...state,
                 posts: state.posts.map( post =>
-                    (post._id===action.payload._id) ? 
+                    (post._id === action.payload._id) ? 
                         action.payload:post),
                 loading: false
-            }
-        case UPDATE_POST:
-            return {
-                ...state,
-                posts: state.posts.map( post =>
-                    (post._id===action.payload._id) ? 
-                        action.payload:post),
-                loading: false
-            };           
+            }         
         case ADD_POST:
             return {
                 ...state,

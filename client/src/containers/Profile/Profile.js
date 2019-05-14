@@ -15,17 +15,16 @@ class Profile extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.getPostsById(this.props.match.params.id);
-  }
 
   render() {
     let username;
+    let userID = this.props.auth.user.id
     const { posts } = this.props.post;
     posts.map(post => username = post.author)
 
     let postContent
     postContent = <PostsList posts={posts} />
+
     return (
       <div>
         <Header />
@@ -33,7 +32,7 @@ class Profile extends Component {
           <h2>{username}</h2>
         </div>
         <div className="feed">
-          { this.props.match.params.id === this.props.post.user ? (
+          { this.props.match.params.id === userID ? (
             <PostForm />
           ):(null)}
           <div className="friends-posts">

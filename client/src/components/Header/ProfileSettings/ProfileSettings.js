@@ -6,6 +6,7 @@ import './style.css'
 // Redux 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getPostsById } from '../../../actions/postActions';
 import { logoutUser } from '../../../actions/authActions';
 
 class ProfileSettings extends Component {
@@ -14,6 +15,10 @@ class ProfileSettings extends Component {
     this.state = {
       isOpen: false
     }
+  }
+
+  onUsernameClick = (id) => {
+    this.props.getPostsById(id)
   }
 
   toggleMenu = e => {
@@ -25,8 +30,7 @@ class ProfileSettings extends Component {
     }
   }
 
-  onLogoutClick = e => {
-    e.preventDefault();
+  onLogoutClick = () => {
     this.props.logoutUser();
   }
 
@@ -37,7 +41,7 @@ class ProfileSettings extends Component {
     return (
       <div className="profile">
         <img src={Avatar} alt="user avatar"/>
-        <Link to={`/profile/${user.id}`}>
+        <Link onClick={() => this.onUsernameClick(user.id)} to={`/profile/${user.id}`}>
           <span id="username">{user.name}</span>
         </Link>
         <div className="profile-menu-container">
@@ -48,7 +52,7 @@ class ProfileSettings extends Component {
           { isOpen ? (
             <ul className="profile-menu">
               <li>Admin panel</li>
-              <Link to={`/profile/${user.id}`}>
+              <Link onClick={() => this.onUsernameClick(user.id)} to={`/profile/${user.id}`}>
                 <li>My profile</li>
               </Link>
               <li onClick={this.onLogoutClick}>Sign out</li>
@@ -61,6 +65,7 @@ class ProfileSettings extends Component {
 }
 
 ProfileSettings.propTypes = {
+  getPostsById: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -69,5 +74,5 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { logoutUser })(ProfileSettings)
+export default connect(mapStateToProps, { logoutUser, getPostsById })(ProfileSettings)
   
