@@ -16,14 +16,14 @@ export const getPost = (id) => dispatch => {
     dispatch(setPostLoading());
     axios
         .get(`/api/posts/${id}`)
-            .then(res => dispatch({
-                type: GET_POST,
-                payload: res.data
-            }))
-            .catch(err => dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            }))
+        .then(res => dispatch({
+            type: GET_POST,
+            payload: res.data
+        }))
+        .catch(err => dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        }))
 }
 
 // POST - Get all posts
@@ -31,14 +31,14 @@ export const getPosts = () => dispatch => {
     dispatch(setPostLoading());
     axios
         .get('/api/posts')
-            .then(res => dispatch({
-                type: GET_POSTS,
-                payload: res.data
-            }))
-            .catch(err => dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            }))
+        .then(res => dispatch({
+            type: GET_POSTS,
+            payload: res.data
+        }))
+        .catch(err => dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        }))
 }
 
 // POST - Get all posts by user id
@@ -46,36 +46,35 @@ export const getPostsById = (id) => dispatch => {
     dispatch(setPostLoading());
     axios
         .get(`/api/profile/${id}`)
-            .then(res => {
-                dispatch({
-                    type: GET_USERS_POSTS,
-                    payload: res.data        
-                })
+        .then(res => {
+            dispatch({
+                type: GET_USERS_POSTS,
+                payload: res.data        
             })
-            .catch(err => dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            }))
+        })
+        .catch(err => dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        }))
 }
 
 // POST - Add post
 export const addPost = (userData) => dispatch => {
     axios
         .post('/api/posts/add', userData)
-            .then(res => 
-                dispatch({
-                    type: ADD_POST,
-                    payload: res.data
-                }),
-                dispatch({
-                    type: CLEAR_ERRORS,
-                    payload: null
-                })
-            )
-            .catch(err => dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data
-            }))
+        .then(res => 
+        dispatch({
+            type: ADD_POST,
+            payload: res.data
+        }),
+        dispatch({
+            type: CLEAR_ERRORS,
+            payload: null
+        }))
+        .catch(err => dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        }))
 }
 
 // POST - Edit post

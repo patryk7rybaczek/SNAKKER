@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import './style.css'
 import Header from '../../components/Header/Header'
-import { connect } from 'react-redux';
-import { getPostsById } from '../../actions/postActions';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
+import { getPostsById } from '../../actions/postActions'
+import PropTypes from 'prop-types'
 import PostForm from '../../components/Feed/PostForm/PostForm'
 import PostsList  from '../../components/Feed/Post/PostsList'
 
@@ -15,6 +15,10 @@ class Profile extends Component {
     }
   }
 
+  componentDidMount() {
+    let id = this.props.match.params.id;
+    this.props.getPostsById(id)
+  }
 
   render() {
     let username;

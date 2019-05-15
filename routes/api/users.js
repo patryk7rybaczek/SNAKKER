@@ -233,4 +233,19 @@ router.post('/retrieve/:token' , function(req,res) {
     });
 });
 
+// @ROUTE GET http://localhost:4000/api/users
+// @DESC GET ALL USERS 
+// @ACCESS PRIVATE
+router.get('/', (req, res) => {
+    User.find().then(user => {
+        // Really we are getting only the names, i dont see any point in sending whole user object
+        // Also could be security risk?
+        let users = user.map(function(obj){
+            return {"name":obj["name"], "id":obj["_id"]};
+        });
+        res.json(users)
+    }).catch(err => res.status(404).json({ nousersfound: 'No users found' }));
+});
+
+
 module.exports = router;

@@ -10,7 +10,7 @@ const Post = require('../../models/Post');
 // @ROUTE GET http://localhost:4000/api/profile/:id
 // @DESC GET POSTS BY USER ID
 // @ACCESS PRIVATE
-router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/:id', (req, res) => {
     Post.find({'user': req.params.id})
         .sort({ Date: -1 })
         .then(posts => res.json(posts))

@@ -1,88 +1,89 @@
 import React, { Component } from 'react'
 import './style.css'
 
-import SearchSuggestion from './SearchSuggestion/SearchSuggestion'
-import Avatar from '../ProfileSettings/avatar.jpg'
+import Suggestion from './SearchSuggestion/Suggestion'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { getUsers } from '../../../actions/userActions'
+class Search extends Component {
 
-export default class Search extends Component {
-
-  state = {
-    showSuggestion: false,
-    initsearchesFound: [{
-      id: 0,
-      name: 'Alfred',
-      lastname: 'Svensson',
-      avatar: {Avatar}
-    },
-    {
-      id: 1,
-      name: 'Simon',
-      lastname: 'Gunnarsson',
-      avatar: {Avatar}
-    },
-    {
-      id: 2,
-      name: 'Ahmed',
-      lastname: 'Nilsson',
-      avatar: {Avatar}
-    },
-    {
-      id: 3,
-      name: 'Niklas',
-      lastname: 'Gran',
-      avatar: {Avatar}
-    },
-    {
-      id: 4,
-      name: 'Shindy',
-      lastname: 'Ylle',
-      avatar: {Avatar}
-    },
-    {
-      id: 5,
-      name: 'Dankan',
-      lastname: 'Bertin',
-      avatar: {Avatar}
+  constructor(props) {
+    super(props)
+    this.state = {
+      showSuggestion: false,
+      users: [{}],
+      searchesFound: []
     }
-  ],
-  searchesFound: []
+  }
+
+  onSearchClick = (e) => {
+    this.setState({
+      showSuggestion: true
+    })
+    this.props.getUsers();
   }
 
   handleSearchChange = (event) => {
     if(event.target.value) {
-      let updatedSearchesFound = this.state.initsearchesFound;
+      let updatedSearchesFound = this.state.users.users;
       let query = event.target.value.toString().toLowerCase();
       updatedSearchesFound = updatedSearchesFound.filter(function(searchesFound) {
-        return (
-          searchesFound.name.toLowerCase().search(query) >= 0 ||
-          searchesFound.lastname.toLowerCase().search(query) !== -1
-        )
+        return (searchesFound.name.toLowerCase().search(query) >= 0)
       })
-      this.setState({showSuggestion: true})
       this.setState({searchesFound: updatedSearchesFound})
-    } else {
-      this.setState({showSuggestion: false})
+    } else {}
+  }
+
+  hideList = e => {
+    this.setState({showSuggestion: false})
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.users) {
+      this.setState({
+        users: nextProps.users
+      })
     }
   }
-
-  componentWillMount() {
-    this.setState({searchesFound: this.state.initsearchesFound})
-  }
+  
 
   render() {
+    let suggestionContent;
+    suggestionContent = this.state.searchesFound.map(user => <Suggestion key={user.id} user={user} />)
+
     return (
       <div className="search">
           <input 
             type="text" 
-            placeholder="search users..." 
+            placeholder="Search users..." 
             onChange={this.handleSearchChange}
+            onClick={this.onSearchClick}
           />
-          <button><i className="fas fa-search"></i></button>
-          <div className="">
-            {this.state.showSuggestion && <SearchSuggestion searchesFound={this.state.searchesFound}/>}
+          <button onClick={this.onSearchClick}><i className="fas fa-search"></i></button>
+          <div onClick={this.hideList}>
+          {this.state.showSuggestion && (
+              <ul className="search-list">
+                {suggestionContent}
+              </ul>)}
           </div>
       </div>
     )
   }
 }
+
+Search.propTypes = {
+  auth: PropTypes.object.isRequired,
+  users: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+  getUsers: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  users: state.users,
+  errors: state.error
+});
+
+export default connect(
+  mapStateToProps, { getUsers })(Search);
   
