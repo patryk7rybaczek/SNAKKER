@@ -57,7 +57,7 @@ class UserCommentList extends Component {
     render() {
         const { errors } = this.state
         const showError = this.state.showError
-		const { auth, post, comments } = this.props
+		const { post, comments } = this.props
         const commentsContent = comments.map(comment => <Comment key={comment._id} comment={comment}  post={post} />)
 
         return (

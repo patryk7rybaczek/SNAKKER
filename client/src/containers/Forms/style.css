@@ -48,7 +48,7 @@ body {
   text-align: center;
   letter-spacing: -0.5px; }
 
-.SignInUpContainer form .OfferLink a {
+.SignInUpContainer form .OfferLink span {
   color: #21b994;
   text-decoration: none; }
 

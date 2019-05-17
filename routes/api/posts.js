@@ -15,7 +15,7 @@ const Post = require('../../models/Post');
 // User Model
 const User = require('../../models/User');
 
-// @ROUTE GET http://localhost:4000/api/posts
+// @ROUTE GET http://localhost:4000/api/posts/:id
 // @DESC GET POST BY ID
 // @ACCESS PRIVATE
 router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {

@@ -66,7 +66,7 @@ class SignInForm extends Component {
             </div>
             <form className="SignInForm" noValidate onSubmit={this.onSubmit}>
                 <h2 className="Heading-SignIn">Welcome to snakker</h2>
-                <p className="OfferLink">New to snakker? <a href="#">Check what we have to offer!</a></p>
+                <p className="OfferLink">New to snakker? <span>Check what we have to offer!</span></p>
                 <label>E-mail</label>
                 <span className="error-span">{errors.email} {errors.emailnotfound}</span>
                 <input 
